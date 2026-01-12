@@ -33,7 +33,7 @@ class BSInterpreter:
         i = 0
         while i < len(raw_code):
             matched = False
-            for length in range(min(20, len(raw_code) - i), 0, -1):
+            for length in range(min(25, len(raw_code) - i), 0, -1):
                 substring = raw_code[i:i+length]
                 if substring in self.commands:
                     bf_code.append(self.commands[substring])
@@ -62,13 +62,13 @@ class BSInterpreter:
                 stack.append(i)
             elif cmd == ']':
                 if not stack:
-                    raise ValueError(f"対応する '[' がありません (位置 {i}) / 해당하는 '['가 없습니다 (위치 {i})")
+                    raise ValueError(f"対応する 'ｽﾋﾟｷﾓﾘﾁｬﾊﾞﾀﾞﾝｷﾞｼﾞﾊﾞｾﾞﾖ!' がありません (位置 {i}) / 해당하는 '스피키 머리 잡아당기지 마세요!'가 없습니다 (위치 {i})")
                 start = stack.pop()
                 loop_map[start] = i
                 loop_map[i] = start
         
         if stack:
-            raise ValueError(f"対応する ']' がありません (位置 {stack[0]}) / 해당하는 ']'가 없습니다 (위치 {stack[0]})")
+            raise ValueError(f"対応する 'ｽﾋﾟｷｦｲｼﾞﾒﾇﾝﾃﾞ...' がありません (位置 {stack[0]}) / 해당하는 '스피키 열심히 했는데...'가 없습니다 (위치 {stack[0]})")
         
         while code_pointer < len(code):
             cmd = code[code_pointer]
@@ -133,10 +133,16 @@ def menuanswerinput():
     if menuanswer == "1":
         open_file()
         interpreter = BSInterpreter()
-        result = interpreter.run(SPKcode)
+        
+        input_data = ""
+        if 'ｽﾋﾟｷﾃﾞﾘｼﾞﾊﾞｾﾞﾖ!' in SPKcode or '스피키 네르지 마세요!' in SPKcode:
+            print("入力が必要です/입력이 필요합니다:")
+            input_data = input(">>")
+        
+        result = interpreter.run(SPKcode, input_data)
         print(result)
     elif menuanswer == "2":
-        print("情報/----------------------------------------")
+        print("情報/정보------------------------------------")
         print("Brainｽﾋﾟｷ/Brain스피키")
         print("Created by: Mizuka Lover")
         print("Some help:Claude")
@@ -175,7 +181,7 @@ def open_file():
         with open(Wee, encoding=encoding) as file:
             SPKcode = file.read()
 
-print("Brainsupiki 1.0.0")
+print("Brainsupiki 1.1.0")
 print("Created by: Mizuka Lover")
 
 while True:

@@ -34,22 +34,32 @@ def bf_to_text(code, lang='ja'):
     for char in code:
         if char in mapping:
             result.append(mapping[char])
-    return ' '.join(result)
+    return ''.join(result)
 
 def text_to_bf(text, lang='ja'):
     mapping = ja_to_bf if lang == 'ja' else ko_to_bf
     
-    tokens = text.replace('\n', '').split()
     result = []
+    i = 0
+    text = text.replace('\n', '')
     
-    for token in tokens:
-        if token in mapping:
-            result.append(mapping[token])
+    sorted_keys = sorted(mapping.keys(), key=len, reverse=True)
+    
+    while i < len(text):
+        found = False
+        for key in sorted_keys:
+            if text[i:i+len(key)] == key:
+                result.append(mapping[key])
+                i += len(key)
+                found = True
+                break
+        if not found:
+            i += 1
     
     return ''.join(result)
 
 def main():
-     while True:
+    while True:
         print("\n変換モードを選択してください / 변환 모드를 선택하세요:")
         print("1. Brainfuck → Brainsupiki(JP)")
         print("2. Brainfuck → Brainsupiki(KR)")
@@ -65,7 +75,7 @@ def main():
         if choice not in ['1', '2', '3', '4']:
             continue
         
-        print("\nコードを入力してください（空行で終了） / 코드를 입력하세요 (빈 줄로 종료):")
+        print("\nコードを入力してください(空行で終了) / 코드를 입력하세요 (빈 줄로 종료):")
         lines = []
         while True:
             line = input()
