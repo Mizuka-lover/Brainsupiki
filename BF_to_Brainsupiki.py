@@ -7,7 +7,7 @@ bf_to_ja = {
     '-': 'ｽﾝﾊﾞｺｯﾁ',
     '.': 'ｳｱｱ!',
     ',': 'ｽﾋﾟｷﾃﾞﾘｼﾞﾊﾞｾﾞﾖ!',
-    '[': 'ﾓﾘﾁｬﾊﾞﾀﾞﾝｷﾞｼﾞﾊﾞｾﾞﾖ!',
+    '[': 'ｽﾋﾟｷﾓﾘﾁｬﾊﾞﾀﾞﾝｷﾞｼﾞﾊﾞｾﾞﾖ!',
     ']': 'ｽﾋﾟｷｦｲｼﾞﾒﾇﾝﾃﾞ...'
 }
 
@@ -18,7 +18,7 @@ bf_to_ko = {
     '-': '숨바꼭질',
     '.': '흐으아악!',
     ',': '스피키 네르지 마세요!',
-    '[': '머리 잡아당기지 마세요!',
+    '[': '스피키 머리 잡아당기지 마세요!',
     ']': '스피키 열심히 했는데...'
 }
 
@@ -39,8 +39,7 @@ def bf_to_text(code, lang='ja'):
 def text_to_bf(text, lang='ja'):
     mapping = ja_to_bf if lang == 'ja' else ko_to_bf
     
-    # スペースや改行で分割
-    tokens = text.replace('\n', ' ').split()
+    tokens = text.replace('\n', '').split()
     result = []
     
     for token in tokens:

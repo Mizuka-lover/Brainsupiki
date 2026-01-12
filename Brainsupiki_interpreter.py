@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from tkinter import filedialog
 from chardet.universaldetector import UniversalDetector
 
@@ -7,7 +9,6 @@ class BSInterpreter:
         self.pointer = 0
         self.output = []
         
-        # カスタム命令のマッピング
         self.commands = {
             'ﾑﾙｺﾞﾙﾚｼﾞ': '>',
             '물걸레질': '>',
